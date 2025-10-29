@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <h3>Audio Input</h3>
+    <input type="file" id="fileInput" accept=".wav" />
+    <br><br>
+    <button id="recordButton">Record</button>
+    <button id="stopButton" disabled>Stop</button>
+    <p>(Max recording time: 5 seconds)</p>
+
+    <h3>Expected Note (optional)</h3>
+    <input type="text" id="expectedNote" placeholder="e.g. C4 or 440" />
+
+    <br><br>
+    <button id="analyzeButton">Analyze</button>
+
+    <h3>Results</h3>
+    <div id="results">
+      Detected Pitch: <span id="pitch">---</span><br>
+      Note: <span id="note">---</span><br>
+      Confidence: <span id="confidence">---</span><br>
+      Deviation: <span id="deviation">---</span><br>
+    </div>
+
+    <br>
+    <button id="downloadButton" disabled>Download Results</button>
+
+    <script type="module" src="../../dist/frontend/frontend/app.js"></script>
+
+  </body>
+</html>

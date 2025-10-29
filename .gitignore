@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+*.log
+*.tmp
+
+# macOS Finder files
+.DS_Store
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Temporary audio
+*.wav
+recordings/
+
+# Local environment
+.env
+
+# VSCode
+.vscode/
