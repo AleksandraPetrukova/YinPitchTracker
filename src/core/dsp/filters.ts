@@ -39,11 +39,14 @@ class BiquadFilter {
 /**
  * Create High-Pass Filter
  */
-export function createHighPassFilter(cutoff: number, sampleRate: number): BiquadFilter {
-  const w0 = 2 * Math.PI * cutoff / sampleRate;
+export function createHighPassFilter(
+  cutoff: number,
+  sampleRate: number,
+  Q: number = 0.707
+): BiquadFilter {
+  const w0 = (2 * Math.PI * cutoff) / sampleRate;
   const cos = Math.cos(w0);
   const sin = Math.sin(w0);
-  const Q = 0.707; // Butterworth
   const alpha = sin / (2 * Q);
 
   const b0 = (1 + cos) / 2;
@@ -59,11 +62,14 @@ export function createHighPassFilter(cutoff: number, sampleRate: number): Biquad
 /**
  * Create Low-Pass Filter
  */
-export function createLowPassFilter(cutoff: number, sampleRate: number): BiquadFilter {
-  const w0 = 2 * Math.PI * cutoff / sampleRate;
+export function createLowPassFilter(
+  cutoff: number,
+  sampleRate: number,
+  Q: number = 0.707
+): BiquadFilter {
+  const w0 = (2 * Math.PI * cutoff) / sampleRate;
   const cos = Math.cos(w0);
   const sin = Math.sin(w0);
-  const Q = 0.707;
   const alpha = sin / (2 * Q);
 
   const b0 = (1 - cos) / 2;
@@ -87,12 +93,20 @@ export function applyFilters(
   let processed = frame;
 
   if (config.highPassCutoff > 0) {
-    const hp = createHighPassFilter(config.highPassCutoff, sampleRate);
+    const hp = createHighPassFilter(
+      config.highPassCutoff,
+      sampleRate,
+      config.highPassQ ?? 0.707
+    );
     processed = hp.processFrame(processed);
   }
 
   if (config.lowPassCutoff > 0) {
-    const lp = createLowPassFilter(config.lowPassCutoff, sampleRate);
+    const lp = createLowPassFilter(
+      config.lowPassCutoff,
+      sampleRate,
+      config.lowPassQ ?? 0.707
+    );
     processed = lp.processFrame(processed);
   }
 

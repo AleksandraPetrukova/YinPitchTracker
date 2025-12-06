@@ -3,7 +3,7 @@
 
 import { calculateRMS } from "./rms.js";
 import type { DSPConfig } from "./dsp-config.js";
-
+import { defaultDSPConfig } from "./dsp-config.js";
 
 /**
  * Normalize audio frame RMS to a target level
@@ -11,11 +11,13 @@ import type { DSPConfig } from "./dsp-config.js";
  */
 export function normalizeFrame(
   frame: Float32Array,
-  targetRMS: number = 0.25
+  targetRMS?: number
 ): Float32Array {
+  // Use supplied targetRMS when provided, otherwise fall back to DSP defaults
+  const desired = targetRMS ?? defaultDSPConfig.normalizationTargetRMS;
   const rms = calculateRMS(frame);
   if (rms === 0) return frame; // avoid division by zero
-  const gain = targetRMS / rms;
+  const gain = desired / rms;
 
   const out = new Float32Array(frame.length);
   for (let i = 0; i < frame.length; i++) {
@@ -30,13 +32,15 @@ export function normalizeFrame(
  */
 export function softNoiseGate(
   frame: Float32Array,
-  threshold: number = 0.02
+  threshold?: number
 ): Float32Array {
+  // Use supplied threshold when provided, otherwise fall back to DSP defaults
+  const thr = threshold ?? defaultDSPConfig.noiseGateThreshold;
   const rms = calculateRMS(frame);
-  if (rms >= threshold) return frame;
+  if (rms >= thr) return frame;
 
   // Below threshold → attenuate
-  const attenuation = rms / threshold; // scale 0 → 1
+  const attenuation = rms / thr; // scale 0 → 1
   const out = new Float32Array(frame.length);
   for (let i = 0; i < frame.length; i++) {
     out[i] = frame[i] * attenuation;
