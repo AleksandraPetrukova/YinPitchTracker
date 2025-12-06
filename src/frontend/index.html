@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <h1 id="appTitle">Yin Pitch Tracker - Daniel Ha. MUMT 307. Fall 2025</h1>
 
-    <h3>Audio Input</h3>
-    <input type="file" id="fileInput" accept=".wav" />
-    <br><br>
-    <button id="recordButton">Record</button>
-    <button id="stopButton" disabled>Stop</button>
-    <p>(Max recording time: 5 seconds)</p>
+    <!-- Mode tabs -->
+    <div id="modeBar">
+      <h2>Mode</h2>
+      <div id="modeButtons">
+        <button id="tab-file">Choose File</button>
+        <button id="tab-record">Record</button>
+        <button id="tab-live">Live Tuner</button>
+      </div>
+    </div>
+    <hr>
+
+    <!-- FILE MODE -->
+    <div id="fileSection">
+      <h3>Audio Input: Choose File</h3>
+      <input type="file" id="fileInput" accept=".wav" />
+      <button id="playUploadButton" disabled>Playback</button>
+    </div>
+
+    <!-- RECORD MODE -->
+    <div id="recordSection" style="display:none;">
+      <h3>Audio Input: Record</h3>
+      <button id="recordButton">Record</button>
+      <button id="stopButton" disabled>Stop</button>
+      <button id="playRecordButton" disabled>Playback</button>
+      <p>(Max recording time: 5 seconds)</p>
+
+      <div>
+        Recording time left:
+        <span id="countdown">--</span> s
+      </div>
+    </div>
+
+    <!-- LIVE MODE -->
+    <div id="liveSection" style="display:none;">
+      <h3>Audio Input: Live Tuner</h3>
+      <button id="liveStartButton">Start</button>
+      <button id="liveStopButton" disabled>Stop</button>
+      <p>Live tuner processes microphone input in real time.</p>
+    </div>
 
     <h3>Expected Note (optional)</h3>
     <input type="text" id="expectedNote" placeholder="e.g. C4 or 440" />
@@ -21,12 +55,33 @@
       Note: <span id="note">---</span><br>
       Confidence: <span id="confidence">---</span><br>
       Deviation: <span id="deviation">---</span><br>
+      Source: <span id="sourceLabel">---</span><br>
     </div>
 
     <br>
-    <button id="downloadButton" disabled>Download Results</button>
+    <button id="downloadButton" disabled>Download Results (JSON)</button>
+    <button id="saveWavButton" disabled>Save Recording as WAV</button>
 
+    <hr>
+    <h3>Audio Devices</h3>
+    <div id="deviceSection">
+      <div>
+        <label for="inputDeviceSelect">Input (microphone):</label>
+        <select id="inputDeviceSelect"></select>
+      </div>
+      <div>
+        <label for="outputDeviceSelect">Output (speaker):</label>
+        <select id="outputDeviceSelect"></select>
+      </div>
+      <div id="deviceInfo">
+        Current input: <span id="currentInputLabel">Unknown</span><br>
+        Current output: <span id="currentOutputLabel">Default</span><br>
+        Note: Changing devices may require browser permission.
+      </div>
+      <button id="refreshDevicesButton">Refresh Devices</button>
+    </div>
+
+    <!-- keep this exactly as you had it on Windows -->
     <script type="module" src="../../dist/frontend/frontend/app.js"></script>
-
   </body>
 </html>

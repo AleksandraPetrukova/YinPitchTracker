@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>core/yin — Docs</title>
+    <link rel="stylesheet" href="../site.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header><h1>core/yin.ts</h1></header>
+      <main id="content" class="md-content card">Loading...</main>
+      <div class="footer"><a href="../index.html">Back to docs index</a></div>
+    </div>
+    <script>
+      render = async (p, e) => {
+        const r = await fetch(p);
+        e.innerHTML = marked.parse(await r.text());
+        document
+          .querySelectorAll("pre code")
+          .forEach((b) => hljs.highlightElement(b));
+      };
+      render("./yin.md", document.getElementById("content"));
+    </script>
+  </body>
+</html>

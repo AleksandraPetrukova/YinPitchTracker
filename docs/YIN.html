@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>YIN — Documentation</title>
+    <link rel="stylesheet" href="./site.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header><h1>YIN — Implementation Notes</h1></header>
+      <main id="content" class="md-content card">Loading...</main>
+      <div class="footer">Back to <a href="index.html">Docs Index</a></div>
+    </div>
+    <script>
+      async function renderMD(path, el) {
+        const r = await fetch(path);
+        const md = await r.text();
+        el.innerHTML = marked.parse(md);
+        document
+          .querySelectorAll("pre code")
+          .forEach((b) => hljs.highlightElement(b));
+      }
+      renderMD("./YIN.md", document.getElementById("content"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "highPassCutoff": 50,
+  "lowPassCutoff": 0,
+  "highPassQ": 0.707,
+  "lowPassQ": 0.707,
+  "noiseGateThreshold": 0.02,
+  "enableNoiseGate": true,
+  "enableNormalization": true,
+  "normalizationTargetRMS": 0.25,
+  "enableMedianSmoothing": true,
+  "medianWindowSize": 5,
+  "enableMovingAverage": true,
+  "movingAverageAlpha": 0.35,
+  "frameSize": 2048
+}

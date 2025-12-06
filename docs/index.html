@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Yin Pitch Tracker — Docs</title>
+    <link rel="stylesheet" href="./site.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Yin Pitch Tracker — Documentation</h1>
+        <div class="badges">
+          <span class="card">Version: <strong>local</strong></span>
+        </div>
+      </header>
+
+      <p class="lead">
+        Browse the project documentation. The pages are rendered from the
+        Markdown sources in <code>/docs</code> and <code>/docs/core</code>.
+      </p>
+
+      <div class="nav card">
+        <a href="../readme.md">README (source)</a>
+        <a href="frontend-flow.html">Frontend flow</a>
+        <a href="YIN.html">YIN Overview</a>
+        <a href="core/yin.html">core/yin</a>
+        <a href="core/pitch-engine.html">core/pitch-engine</a>
+        <a href="core/note-utils.html">core/note-utils</a>
+        <a href="core/dsp-config.html">core/dsp/dsp-config</a>
+        <a href="core/filters.html">core/dsp/filters</a>
+        <a href="core/noise.html">core/dsp/noise</a>
+        <a href="core/rms.html">core/dsp/rms</a>
+        <a href="core/smoothing.html">core/dsp/smoothing</a>
+      </div>
+
+      <main class="md-content card" id="content">
+        <p>Loading README...</p>
+      </main>
+
+      <div class="footer">
+        Docs generated locally — styles powered by <code>site.css</code>,
+        renderer: marked.js + highlight.js
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>
+      // render README.md (root) into this page
+      async function render(path, container) {
+        try {
+          const res = await fetch(path);
+          const md = await res.text();
+          const html = marked.parse(md);
+          container.innerHTML = html;
+          document.querySelectorAll("pre code").forEach((block) => {
+            hljs.highlightElement(block);
+          });
+        } catch (e) {
+          container.innerHTML = `<p style="color:#f87171">Failed to load ${path}: ${e}</p>`;
+        }
+      }
+
+      render("../readme.md", document.getElementById("content"));
+    </script>
+  </body>
+</html>
