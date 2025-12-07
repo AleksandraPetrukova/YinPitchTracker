@@ -6,28 +6,14 @@ Lightweight pitch detection powered by the YIN algorithm. Record or upload audio
 
 ### Highlights
 
-- Record up to 5 seconds or upload `.wav` (stereo → mono, trims first 0.3s attack)
-- Real-time live tuner mode
-- YIN implementation with confidence scoring, smoothing, and note/deviation reporting
-- Downloadable JSON results; save recordings as WAV
+- (Upload File mode) Choose File (.wav) for analysis of single tone
+- (Record mode) Record up to 5 seconds or upload `.wav` (stereo → mono, trims first 0.3s attack)
+- (Live Tuner mode) Real-time live tuner mode
+- YIN implementation with confidence probability, smoothing, and note/deviation reporting
+- Downloadable JSON results; save recordings as WAV (Record mode only)
 - Node CLI for offline analysis
 
 ---
-
-### Quick Start
-
-```bash
-npm install
-npm run build
-npx tsc --project tsconfig.frontend.json   # browser bundle
-```
-
-Serve the repo with any static server, e.g.:
-
-````bash
-npx http-server .
-# then open:
-## 🎵 Yin Pitch Tracker — Browser + CLI
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
@@ -36,6 +22,7 @@ Lightweight pitch detection powered by the YIN algorithm. Record or upload audio
 ---
 
 ## Table of Contents
+
 - [Highlights](#highlights)
 - [Quick Start](#quick-start)
 - [Browser Usage](#using-the-browser-app)
@@ -48,6 +35,7 @@ Lightweight pitch detection powered by the YIN algorithm. Record or upload audio
 ---
 
 ### Highlights
+
 - Record up to 5 seconds or upload `.wav` (stereo → mono, trims first 0.3s attack)
 - Real-time live tuner mode
 - YIN implementation with confidence scoring, smoothing, and note/deviation reporting
@@ -57,13 +45,14 @@ Lightweight pitch detection powered by the YIN algorithm. Record or upload audio
 ---
 
 ### Quick Start
+
 Install dependencies and build the project:
 
 ```powershell
 npm install
 npm run build
 npx tsc --project tsconfig.frontend.json   # browser bundle
-````
+```
 
 Serve the repo locally and open the browser app:
 
@@ -203,19 +192,14 @@ flowchart TD
 
 # 🙋 For Collaborators
 
-After cloning:
-
-````
-## For Collaborators
-
 After cloning, run the following to build and preview locally:
 
-```powershell
+```
 npm install
 npm run build
 npx tsc --project tsconfig.frontend.json
 npx http-server .
-````
+```
 
 Open the browser at:
 
@@ -242,6 +226,56 @@ If you'd like, open an issue with the feature idea and I can help implement it.
 
 ---
 
+## Documentation
+
+Authoritative docs live in the `docs/` folder:
+
+- `docs/index.html` / `docs/index.md`: project overview and entry point (open the HTML in a browser for a quick tour).
+- `docs/YIN.md`: DSP + YIN algorithm walkthrough that backs the detector.
+- `docs/frontend-flow.md`: UI flow diagrams and event wiring.
+- `docs/core/`: per-file notes for the shared DSP + utilities.
+
+You can open the Markdown files in any editor, or load the HTML versions directly in a browser for a styled experience.
+
+---
+
+## Screenshot
+
+<img src="docs/screenshots/v0.1-main.png" width="70%">
+
+---
+
+## Adding Screenshots
+
+1. Drop `.png` or `.jpg` files into a folder such as `docs/screenshots/` (create it if needed) so they live alongside the rest of the docs assets.
+2. Reference them from Markdown (including this `readme.md`) with a relative path, e.g. `![Live tuner](docs/screenshots/live-tuner.png)` or the HTML `<img>` tag if you need sizing.
+3. When you serve the repo locally with `npx http-server .`, those relative paths resolve automatically, so the screenshots show up both on GitHub and in your local docs site.
+
+---
+
+## Frontend Automation Tests
+
+- Deterministic WAV fixtures live in `tests/fixtures/`. `.gitignore` ignores loose `.wav` files but explicitly allows this folder so committed fixtures stay versioned.
+- Configure scenarios inside `tests/frontend-testcases.json`. The default config reuses `tests/fixtures/frontend-test.wav` twice—first for a passing **file** mode case, then for a failing **record** mode case—matching the “same input, two modes” workflow you described.
+- Run `npm run test:frontend` to build the core code and execute `tests/frontend-automation.mjs`. Each case prints PASS/FAIL along with detected pitch, confidence, and cents from the expectation.
+- Swap in your own `.wav` files by dropping them into `tests/fixtures/` and adjusting `defaultWav` (or per-case `wavPath`) along with the expected note/confidence thresholds.
+
+---
+
+## Installing Node.js & npm
+
+The project targets Node 18+, which bundles npm. If you don't already have them, install via:
+
+- **Windows**: Download the LTS installer from https://nodejs.org/, run it, and reopen your terminal. Alternatively, `winget install OpenJS.NodeJS.LTS` or `choco install nodejs-lts` (Chocolatey) work on Windows 10/11.
+- **macOS**: Use Homebrew (`brew install node@18`) or grab the LTS `.pkg` installer from https://nodejs.org/.
+- **Linux**: Use your package manager (e.g., `sudo apt install nodejs npm` on Ubuntu/Debian, `sudo dnf install nodejs` on Fedora) or install the tarball from https://nodejs.org/.
+
+Verify the install with `node -v` and `npm -v`. Once both commands print versions, you're ready to run `npm install`.
+
+---
+
 ## License
 
-MIT — see `LICENSE` (or add one if you want this repository publicly licensed).
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+You may not use the material for commercial purposes.
+https://creativecommons.org/licenses/by-nc/4.0/

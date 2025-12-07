@@ -15,9 +15,15 @@ dist/
 # Temporary audio
 *.wav
 recordings/
+!tests/fixtures/*.wav
+!tests/fixtures/**/*.wav
 
 # Local environment
 .env
 
 # VSCode
-.vscode/
+
+# Automation Test
+tests
+test-results
+playwright.config.ts
