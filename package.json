@@ -5,13 +5,16 @@
   "scripts": {
     "build": "tsc",
     "analyze": "ts-node src/cli/analyze.ts",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test:frontend": "npm run build && node tests/frontend-automation.mjs",
+    "test:e2e": "npm run build && playwright test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@playwright/test": "^1.49.0",
     "@types/node": "^24.9.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
